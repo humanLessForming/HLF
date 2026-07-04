@@ -50,6 +50,15 @@
   <div id="sensor" class="value">--</div>
 </div>
 
+<div class="card">
+    <h2>Control Sensor Data</h2>
+  
+    <input type="number" id="sensorInput" placeholder="Enter value">
+    <br><br>
+  
+    <button onclick="sendSensorData()">Send to Firebase</button>
+  </div>
+
 <script>
   // 🔥 Firebase Config (replace this)
  const firebaseConfig = {
@@ -61,7 +70,13 @@
   messagingSenderId: "526367568428",
   appId: "1:526367568428:web:ddb3b8fb53f92db3e1d789"
 };
+function sendSensorData() {
+  let value = document.getElementById("sensorInput").value;
 
+  firebase.database().ref("/SensorData").set(parseInt(value));
+
+  alert("SensorData sent: " + value);
+}
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
 
