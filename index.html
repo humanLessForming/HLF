@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP32 Firebase Dashboard</title>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #f5f5f5;
+      padding-top: 40px;
+    }
+
+    .card {
+      background: white;
+      width: 300px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .value {
+      font-size: 40px;
+      color: green;
+      margin-top: 10px;
+    }
+
+    h1 {
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>ESP32 Firebase Dashboard</h1>
+
+<div class="card">
+  <h2>Random Number</h2>
+  <div id="random" class="value">--</div>
+</div>
+
+<div class="card">
+  <h2>Sensor Data</h2>
+  <div id="sensor" class="value">--</div>
+</div>
+
+<script>
+  // 🔥 Firebase Config (replace this)
+ const firebaseConfig = {
+  apiKey: "AIzaSyClE5zxpyfanbPLY79GBYPtbnXqpNMElyU",
+  authDomain: "humanlessforming.firebaseapp.com",
+  databaseURL: "https://humanlessforming-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "humanlessforming",
+  storageBucket: "humanlessforming.firebasestorage.app",
+  messagingSenderId: "526367568428",
+  appId: "1:526367568428:web:ddb3b8fb53f92db3e1d789"
+};
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  // Read RandomNumber
+  db.ref("/RandomNumber").on("value", (snap) => {
+    document.getElementById("random").innerText = snap.val();
+  });
+
+  // Read SensorData
+  db.ref("/SensorData").on("value", (snap) => {
+    document.getElementById("sensor").innerText = snap.val();
+  });
+
+</script>
+
+</body>
+</html>
