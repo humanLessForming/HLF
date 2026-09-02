@@ -12,12 +12,13 @@ const firebaseConfig = {
     firebase.initializeApp(firebaseConfig);
     
     const db = firebase.database();
-    
+    // power
     const input1 = document.getElementById("input1");
     const input2 = document.getElementById("input2");
     const input3 = document.getElementById("input3");
+    //motor runninng
     const input4 = document.getElementById("input4");
-    
+    //cmd
     const output1 = document.getElementById("output1");
     
     
@@ -39,32 +40,34 @@ const firebaseConfig = {
     
     // Read Inputs
     
-    db.ref("ESP32/Inputs/Input1").on("value",(snapshot)=>{
+    db.ref("motor/power/R").on("value",(snapshot)=>{
     
     updateLED(input1,snapshot.val());
     
     });
     
-    db.ref("ESP32/Inputs/Input2").on("value",(snapshot)=>{
+    db.ref("motor/power/Y").on("value",(snapshot)=>{
     
     updateLED(input2,snapshot.val());
     
     });
     
-    db.ref("ESP32/Inputs/Input3").on("value",(snapshot)=>{
+    db.ref("motor/power/B").on("value",(snapshot)=>{
     
     updateLED(input3,snapshot.val());
     
     });
-    db.ref("ESP32/Inputs/Input4").on("value",(snapshot)=>{
+
+
+    db.ref("motor/run/running").on("value",(snapshot)=>{
     
         updateLED(input4,snapshot.val());
         
         });
     
-    // Read Output Status
+    // Output Status
     
-    db.ref("ESP32/Outputs/Output1").on("value",(snapshot)=>{
+    db.ref("motor/run/commend").on("value",(snapshot)=>{
     
     output1.checked=snapshot.val();
     
@@ -76,7 +79,7 @@ const firebaseConfig = {
     
     output1.addEventListener("change",()=>{
     
-    db.ref("ESP32/Outputs/Output1").set(output1.checked);
+    db.ref("motor/run/commend").set(output1.checked);
     
     });
     
